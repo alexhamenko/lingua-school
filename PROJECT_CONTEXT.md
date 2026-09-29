@@ -8,7 +8,7 @@ englishdom.com (структура й функції; бренд, фото й т
 порівнюй із WP, де це допомагає. Не генеруй великі шматки бекенд-коду без пояснень.
 
 ## Стек
-- Symfony 8.1, PHP 8.4+, FrankenPHP (шаблон dunglas/symfony-docker), PostgreSQL, Redis/Valkey, Mailpit
+- Symfony 8.1, PHP 8.5+, FrankenPHP (шаблон dunglas/symfony-docker), PostgreSQL, Redis/Valkey, Mailpit
 - Doctrine ORM + Migrations, Foundry, UUID v7, symfony/clock
 - Публічна частина: Twig + Symfony UX Twig Components (SSR, SEO), сторінки працюють без JS
 - Стилі: AssetMapper + symfonycasts/tailwind-bundle (standalone Tailwind 4, без Node) + daisyUI
@@ -20,6 +20,18 @@ englishdom.com (структура й функції; бренд, фото й т
 - Якість: PHPStan level max (без baseline), PHP-CS-Fixer (@Symfony, risky), Rector, Deptrac,
   PHPUnit (suites: unit/integration/functional, DAMA), lint:twig, lint:container
 - Команди через Makefile: up, down, sh, css, db-reset, test, qa, fix
+
+## Режим FrankenPHP (рішення)
+- Caddyfile налаштований на worker-режим, але в dev стоїть `FRANKENPHP_LOOP_MAX: 1`
+  (`compose.override.yaml`): worker перезапускається після кожного запиту, тобто семантика
+  shared-nothing, як у класичному PHP. Прод-конфіг не змінено.
+- Навіщо: на етапі вивчення Symfony не змішувати його з нюансами довгоживучого процесу.
+- Код однаково пишемо ідіоматично (stateless-сервіси, `RequestStack`/`Security`/`LocaleSwitcher`,
+  `ClockInterface`, без static-стану, суперглобалів і `exit`), щоб перехід був дешевим.
+- Коли вмикати worker: разом із Messenger (`messenger:consume` - теж довгоживучий процес).
+  Кроки: прибрати `FRANKENPHP_LOOP_MAX` з override, розібрати `ResetInterface`/`kernel.reset`,
+  додати anti-leak функціональні тести (`$client->disableReboot()`, два запити від різних
+  користувачів/локалей), перевірити сервіси на стан у властивостях і сутності в полях.
 
 ## Межа бекенд / UI
 - Мій код: PHP-класи компонентів у src/<Module>/Twig/Components/ (дані, типізовані властивості),
