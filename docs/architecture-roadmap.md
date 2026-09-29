@@ -6,7 +6,7 @@ Sep 28, 2026 · @Alex Hamenko
 
 Pet-проєкт для переходу з WordPress на Symfony: функціональна копія онлайн-школи англійської за зразком [englishdom.com](https://www.englishdom.com/ua/). Робоча назва — LinguaSchool; бренд, логотипи, фото й тексти оригіналу не використовуємо, копіюємо лише структуру та функціональність.
 
-Стек: Symfony 8.1 на PHP 8.4+ (реліз травень 2026, підтримка до січня 2027, далі апгрейд на 8.2), PostgreSQL, Redis/Valkey, FrankenPHP, Twig + Tailwind + daisyUI через AssetMapper (без Node); Vue 3 — пізніше. Фокус проєкту — бекенд: стилі й UI-kit генерує AI. [Джерело: symfony.com/releases/8.1](https://symfony.com/releases/8.1)
+Стек: Symfony 8.1 на PHP 8.5+ (реліз травень 2026, підтримка до січня 2027, далі апгрейд на 8.2), PostgreSQL, Redis/Valkey, FrankenPHP, Twig + Tailwind + daisyUI через AssetMapper (без Node); Vue 3 — пізніше. Фокус проєкту — бекенд: стилі й UI-kit генерує AI. [Джерело: symfony.com/releases/8.1](https://symfony.com/releases/8.1)
 
 ### Публічні сторінки (Twig SSR, SEO)
 

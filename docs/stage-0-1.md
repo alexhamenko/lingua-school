@@ -16,7 +16,7 @@ Sep 28, 2026 · @Alex Hamenko
 2. Створіть репозиторій через «Use this template» на сторінці шаблону і клонуйте його.
 3. Зберіть і запустіть із потрібною версією: `docker compose build --pull --no-cache`, потім `SYMFONY_VERSION=8.1.* docker compose up --wait`. Перевірте актуальний синтаксис у `docs/options.md` шаблону.
 4. Відкрийте `https://localhost`, прийміть self-signed сертифікат, побачте welcome-сторінку Symfony.
-5. Переконайтеся, що в `composer.json` є `"extra": {"symfony": {"require": "8.1.*"}}` і `"php": ">=8.4"`.
+5. Переконайтеся, що в `composer.json` є `"extra": {"symfony": {"require": "8.1.*"}}` і `"php": ">=8.5"`.
 6. Перший коміт одразу після генерації — щоб бачити, що змінюють Flex-рецепти далі.
 
 **Сервіси Docker після етапу 0**
