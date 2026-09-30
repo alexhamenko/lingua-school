@@ -31,9 +31,4 @@ return RectorConfig::configure()
         typeDeclarations: true,
     )
     ->withImportNames(importShortClasses: false)
-    // Inside the project, so it does not depend on who created /tmp/rector_cached_files
-    ->withCache(
-        cacheDirectory: __DIR__.'/var/cache/rector',
-        containerCacheDirectory: __DIR__.'/var/cache/rector',
-    )
 ;
