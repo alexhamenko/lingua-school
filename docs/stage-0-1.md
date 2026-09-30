@@ -53,7 +53,7 @@ Sep 28, 2026 · @Alex Hamenko
 | `symfony/test-pack` | dev | PHPUnit, BrowserKit, DomCrawler |
 | `zenstruck/foundry` | dev | Фабрики й фікстури |
 | `dama/doctrine-test-bundle` | dev | Відкат транзакцій між тестами |
-| `phpstan/phpstan`, `phpstan/phpstan-symfony`, `phpstan/phpstan-doctrine` | dev | Статичний аналіз |
+| `phpstan/phpstan`, `phpstan/phpstan-symfony`, `phpstan/phpstan-doctrine`, `phpstan/extension-installer` | dev | Статичний аналіз; installer автоматично підключає розширення, без `includes` у `phpstan.dist.neon` |
 | `friendsofphp/php-cs-fixer` | dev | Code style |
 | `rector/rector` | dev | Автоматичні рефакторинги й апгрейди |
 | `deptrac/deptrac` | dev | Контроль меж між модулями |
@@ -63,7 +63,7 @@ Sep 28, 2026 · @Alex Hamenko
 Налаштовуємо все на порожньому проєкті, поки немає технічного боргу: потім підняти рівень PHPStan набагато важче.
 
 1. **PHPStan** — `phpstan.dist.neon`: `level: max`, `paths: [src, tests]`, розширення symfony і doctrine; вкажіть `symfony.containerXmlPath` на `var/cache/dev/App_KernelDevDebugContainer.xml` і `doctrine.objectManagerLoader` на `tests/object-manager.php`. Baseline не створюйте.
-2. **PHP-CS-Fixer** — `.php-cs-fixer.dist.php` з наборами `@Symfony`, `@Symfony:risky`, `@PHP84Migration`; `declare_strict_types`, `final_class` для нових класів (крім сутностей Doctrine).
+2. **PHP-CS-Fixer** - `.php-cs-fixer.dist.php` з наборами `@Symfony`, `@Symfony:risky`, `@PHP8x5Migration`, `@PHP8x5Migration:risky`; `declare_strict_types`; `final_internal_class` (усі класи final, крім сутностей Doctrine через виключення атрибутів `ORM\Entity`, `ORM\Embeddable`, `ORM\MappedSuperclass`; опції - `php-cs-fixer describe final_internal_class`). `config/reference.php` виключити з Finder, кеш `.php-cs-fixer.cache` - у `.gitignore`.
 3. **Rector** — `rector.php` з `->withPhpSets()`, `->withAttributesSets()`, наборами Symfony/Doctrine і `->withPreparedSets(deadCode: true, codeQuality: true, typeDeclarations: true)`. У CI запускаємо лише `--dry-run`.
 4. **Deptrac** — `deptrac.yaml`: шар на кожен модуль (`Shared`, `Content`, …) через collector `directory`. Правило: будь-який модуль може залежати від `Shared`; `Shared` — ні від кого. Нові модулі додаєте в конфіг разом із папкою.
 5. **PHPUnit** — `phpunit.dist.xml` з трьома suites: `unit` (`tests/Unit`), `integration` (`tests/Integration`, KernelTestCase + БД), `functional` (`tests/Functional`, WebTestCase). Увімкніть розширення DAMA для відкату транзакцій.
