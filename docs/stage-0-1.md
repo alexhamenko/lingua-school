@@ -64,7 +64,7 @@ Sep 28, 2026 · @Alex Hamenko
 
 1. **PHPStan** — `phpstan.dist.neon`: `level: max`, `paths: [src, tests]`, розширення symfony і doctrine; вкажіть `symfony.containerXmlPath` на `var/cache/dev/App_KernelDevDebugContainer.xml` і `doctrine.objectManagerLoader` на `tests/object-manager.php`. Baseline не створюйте.
 2. **PHP-CS-Fixer** - `.php-cs-fixer.dist.php` з наборами `@Symfony`, `@Symfony:risky`, `@PHP8x5Migration`, `@PHP8x5Migration:risky`; `declare_strict_types`; `final_internal_class` (усі класи final, крім сутностей Doctrine через виключення атрибутів `ORM\Entity`, `ORM\Embeddable`, `ORM\MappedSuperclass`; опції - `php-cs-fixer describe final_internal_class`). `config/reference.php` виключити з Finder, кеш `.php-cs-fixer.cache` - у `.gitignore`.
-3. **Rector** — `rector.php` з `->withPhpSets()`, `->withAttributesSets()`, наборами Symfony/Doctrine і `->withPreparedSets(deadCode: true, codeQuality: true, typeDeclarations: true)`. У CI запускаємо лише `--dry-run`.
+3. **Rector** - `rector.php` з `->withPhpSets()`, `->withAttributesSets()`, `->withComposerBased(symfony: true, doctrine: true, phpunit: true, twig: true)` (набори під встановлені версії пакетів, оновлюються самі після апгрейду), `->withSymfonyContainerXml()` на той самий `var/cache/dev/App_KernelDevDebugContainer.xml` і `->withPreparedSets(deadCode: true, codeQuality: true, typeDeclarations: true)`; `config/reference.php` - у `->withSkip()`. У CI запускаємо лише `--dry-run`.
 4. **Deptrac** — `deptrac.yaml`: шар на кожен модуль (`Shared`, `Content`, …) через collector `directory`. Правило: будь-який модуль може залежати від `Shared`; `Shared` — ні від кого. Нові модулі додаєте в конфіг разом із папкою.
 5. **PHPUnit** — `phpunit.dist.xml` з трьома suites: `unit` (`tests/Unit`), `integration` (`tests/Integration`, KernelTestCase + БД), `functional` (`tests/Functional`, WebTestCase). Увімкніть розширення DAMA для відкату транзакцій.
 6. **Тестова БД** — `.env.test` з окремою базою; команди `doctrine:database:create --env=test` і `doctrine:migrations:migrate --env=test` винесіть у Makefile.
@@ -95,7 +95,7 @@ Sep 28, 2026 · @Alex Hamenko
 | `make db-reset` | drop → create → migrate → fixtures (dev) |
 | `make test` | Тестова БД + `phpunit` |
 | `make qa` | `phpstan`, `php-cs-fixer --dry-run`, `rector --dry-run`, `deptrac`, `lint:twig`, `lint:container`, `doctrine:schema:validate` |
-| `make fix` | `php-cs-fixer fix`, `rector process` |
+| `make fix` | `rector process`, потім `php-cs-fixer fix` (Rector не дотримується code style, CS-Fixer форматує його результат) |
 
 **CI (GitHub Actions)** — розширте workflow із шаблону до одного job: збірка образу, `make qa`, `make test` з PostgreSQL, `tailwind:build --minify` + `asset-map:compile` як smoke-перевірка статики. Увімкніть branch protection: merge у `main` лише із зеленим CI. Працюйте короткими гілками й PR навіть наодинці — так видно історію рішень.
 
