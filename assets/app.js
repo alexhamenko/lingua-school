@@ -1,9 +1,6 @@
 /*
- * Welcome to your app's main JavaScript file!
+ * Main JavaScript entrypoint, included via the importmap() Twig function in base.html.twig.
  *
- * This file will be included onto the page via the importmap() Twig function,
- * which should already be in your base.html.twig.
+ * Pages must work without JavaScript (stages 0-1): styles are linked directly in base.html.twig,
+ * interactive places are data-island placeholders for the future Vue integration.
  */
-import './styles/app.css';
-
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
