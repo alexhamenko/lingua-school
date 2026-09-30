@@ -49,6 +49,8 @@ Scheduling, GroupClasses, Billing, Learning, Vocabulary, Assessment, Leads, Noti
 - Прості (Content, Catalog, Leads): пласко — Entity/, Repository/, Controller/, Twig/
 - Модулі спілкуються через доменні події (Messenger) і публічні фасади; межі контролює Deptrac;
   усі можуть залежати від Shared, Shared — ні від кого
+- Між модулями - посилання за ідентифікатором (UUID), не Doctrine-асоціації на чужі сутності;
+  інтерфейс належить модулю-споживачу, реалізація - модулю-постачальнику (приклад: CourseTeaserProviderInterface)
 - Локалі: uk (default) і en, URL-префікси /ua/ і /en/; / → 301 на /ua/
 - Перекладний контент: сутність + <Entity>Translation (locale, унікальний індекс (parent_id, locale))
 
