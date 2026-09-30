@@ -102,6 +102,8 @@ RUN <<-EOF
 	composer dump-env prod
 	composer run-script --no-dev post-install-cmd
 	if [ -f importmap.php ]; then
+		# Tailwind output must exist before AssetMapper copies app.css to public/assets
+		php bin/console tailwind:build --minify
 		php bin/console asset-map:compile
 	fi
 	chmod +x bin/console
