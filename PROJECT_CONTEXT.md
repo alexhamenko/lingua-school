@@ -19,7 +19,11 @@ englishdom.com (структура й функції; бренд, фото й т
 - Адмінка: EasyAdmin
 - Якість: PHPStan level max (без baseline), PHP-CS-Fixer (@Symfony, risky), Rector, Deptrac,
   PHPUnit (suites: unit/integration/functional, DAMA), lint:twig, lint:container
-- Команди через Makefile: up, down, sh, css, db-reset, test, qa, fix
+- Команди через Makefile: build, up, down, logs, sh, composer, console, cc, css, db-reset, test, qa, fix;
+  Composer і консоль - лише `make composer c='...'` / `make console c='...'`
+- Dev-контейнер працює від uid/gid хоста (UID-мапінг у стадії `frankenphp_dev`), тож файли від рецептів
+  і makers належать користувачу хоста; образ перезбирати через `make build` (передає UID/GID),
+  root у контейнері - лише явно: `docker compose exec -u root php bash`
 
 ## Режим FrankenPHP (рішення)
 - Caddyfile налаштований на worker-режим, але в dev стоїть `FRANKENPHP_LOOP_MAX: 1`
@@ -66,7 +70,9 @@ append-only ledger; групи до 7, розмовні клуби до 12 (A1�
 8 Групи й клуби → 9 B2B/діти/аналітика → 10 Продакшн-якість → (опційно) Vue-фронтенд.
 
 ## Поточний стан
-Етап 0 ще не розпочато. Детальний план етапів 0–1 — у docs/stage-0-1.md.
+Етап 0: 0.1-0.3 завершено (пакети встановлено, QA-інструменти налаштовано, `make qa` і `make test` зелені),
+Makefile з 0.5 готовий. Далі: 0.4 (Tailwind + daisyUI), CI і README з 0.5.
+Детальний план етапів 0–1 - у docs/stage-0-1.md.
 
 ## Правила роботи
 - Кожен крок — окремий невеликий коміт; після змін запускати `make qa` і `make test`

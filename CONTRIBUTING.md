@@ -130,6 +130,6 @@ BREAKING CHANGE: clients must switch to /api/bookings.
 
 ### Перед комітом
 
-- `make qa` і `make test` зелені (коли Makefile з'явиться)
+- `make qa` і `make test` зелені; якщо `make qa` скаржиться на стиль - `make fix`
 - `git diff --staged` - у коміті лише те, що описано в заголовку
 - жодних секретів: реальні значення - у `.env.local` або `secrets:set`

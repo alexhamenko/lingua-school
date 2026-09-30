@@ -32,7 +32,7 @@ Sep 28, 2026 · @Alex Hamenko
 
 ### 0.2 Пакети Composer (≈0,5 дня)
 
-Встановлюйте по одному пакету з окремим комітом і читайте, що додав Flex-рецепт у `config/`, `.env` і `compose.yaml`. Команди виконуються всередині контейнера: `docker compose exec php composer require …`. Якщо пакет ще не підтримує 8.1 — Composer одразу скаже, і це теж корисний досвід.
+Встановлюйте по одному пакету з окремим комітом і читайте, що додав Flex-рецепт у `config/`, `.env` і `compose.yaml`. Команди виконуються всередині контейнера: `make composer c='require …'` (dev-контейнер працює від uid хоста, тож файли від рецептів належать вам). Якщо пакет ще не підтримує 8.1 - Composer одразу скаже, і це теж корисний досвід.
 
 | Пакет | Тип | Навіщо на етапах 0–1 |
 | --- | --- | --- |
@@ -89,25 +89,27 @@ Sep 28, 2026 · @Alex Hamenko
 
 | Ціль | Що робить |
 | --- | --- |
-| `make up` / `make down` | `docker compose up --wait` / `down` |
+| `make build` | Збірка образів з `UID`/`GID` хоста (UID-мапінг у стадії `frankenphp_dev`) |
+| `make up` / `make down` / `make logs` | `docker compose up --wait` / `down` / логи |
 | `make sh` | Shell у контейнері `php` |
+| `make composer c='...'` / `make console c='...'` / `make cc` | Composer, `bin/console`, `cache:clear` |
 | `make css` | `tailwind:build --watch` |
 | `make db-reset` | drop → create → migrate → fixtures (dev) |
-| `make test` | Тестова БД + `phpunit` |
-| `make qa` | `phpstan`, `php-cs-fixer --dry-run`, `rector --dry-run`, `deptrac`, `lint:twig`, `lint:container`, `doctrine:schema:validate` |
+| `make test` | Тестова БД (create + migrate) + `phpunit`, suite через `c='--testsuite unit'` |
+| `make qa` | `cache:warmup`, `phpstan`, `php-cs-fixer --dry-run`, `rector --dry-run`, `deptrac`, `lint:container`, `lint:twig`, `lint:yaml`, `doctrine:schema:validate` |
 | `make fix` | `rector process`, потім `php-cs-fixer fix` (Rector не дотримується code style, CS-Fixer форматує його результат) |
 
 **CI (GitHub Actions)** — розширте workflow із шаблону до одного job: збірка образу, `make qa`, `make test` з PostgreSQL, `tailwind:build --minify` + `asset-map:compile` як smoke-перевірка статики. Увімкніть branch protection: merge у `main` лише із зеленим CI. Працюйте короткими гілками й PR навіть наодинці — так видно історію рішень.
 
 **Готовність етапу 0**
 
-- [ ] `make up` піднімає проєкт з нуля на чистій машині
-- [ ] `https://localhost` відкривається, профайлер працює
-- [ ] `make qa` і `make test` зелені (є хоча б один smoke-тест)
+- [x] `make up` піднімає проєкт з нуля на чистій машині
+- [x] `https://localhost` відкривається, профайлер працює
+- [x] `make qa` і `make test` зелені (є хоча б один smoke-тест)
 - [ ] Tailwind + daisyUI збираються, `base.html.twig` підхоплює стилі
 - [ ] CI зелений на PR, `main` захищений
 - [ ] README: як запустити, які команди є
-- [ ] `CLAUDE.md` у корені з контекстом проєкту
+- [x] `CLAUDE.md` у корені з контекстом проєкту
 
 ## Етап 1. Каркас публічного сайту (≈2–3 тижні)
 
