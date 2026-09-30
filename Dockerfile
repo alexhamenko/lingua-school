@@ -58,15 +58,25 @@ ENV APP_ENV=dev
 ENV XDEBUG_MODE=off
 ENV FRANKENPHP_WORKER_CONFIG=watch
 
+# Host user ids: files created in the container (recipes, makers, uploads) belong to the host user
+ARG UID=1000
+ARG GID=1000
+
 # dev dependencies
 RUN <<-EOF
 	mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 	install-php-extensions xdebug
-	useradd -m -s /bin/bash nonroot
+	groupadd -g "$GID" nonroot
+	useradd -m -s /bin/bash -u "$UID" -g "$GID" nonroot
 	git config --system --add safe.directory /app
+	# Caddy state (/data, /config) and the var/ volume are initialized from these owners
+	mkdir -p /data/caddy /config/caddy /app/var
+	chown -R nonroot:nonroot /data /config /app/var
 EOF
 
 COPY --link frankenphp/conf.d/20-app.dev.ini $PHP_INI_DIR/app.conf.d/
+
+USER nonroot
 
 CMD [ "frankenphp", "run", "--config", "/etc/frankenphp/Caddyfile", "--watch" ]
 

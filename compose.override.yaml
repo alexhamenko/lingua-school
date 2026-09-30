@@ -6,6 +6,10 @@ services:
     build:
       context: .
       target: frankenphp_dev
+      args:
+        # Passed by `make build` (bash does not export UID, GID does not exist there)
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
     volumes:
       - ./:/app
       - ./frankenphp/Caddyfile:/etc/frankenphp/Caddyfile:ro
