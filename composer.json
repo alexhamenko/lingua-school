@@ -19,7 +19,10 @@
         "symfony/runtime": "8.1.*",
         "symfony/twig-bundle": "8.1.*",
         "symfony/yaml": "8.1.*",
-        "twig/extra-bundle": "^3.29"
+        "twig/extra-bundle": "^3.29",
+        "twig/html-extra": "^3.29",
+        "twig/intl-extra": "^3.30",
+        "twig/string-extra": "^3.24"
     },
     "config": {
         "allow-plugins": {
