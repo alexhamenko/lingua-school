@@ -60,22 +60,37 @@
 
 ### Типові сценарії
 
-**Встановлення пакета через Flex.** Один пакет - один коміт; у тілі перелік того, що змінив рецепт
-(`composer.json`, `composer.lock`, `symfony.lock`, `config/reference.php` змінюються щоразу, їх не перелічуємо):
+**Встановлення пакета через Flex.** Один `composer require` - один коміт.
+
+- Заголовок описує **нашу дію**, а не роботу рецепта: `install <package>`. Жодних "configure", "enable",
+  "set up": якщо ми лише виконали `composer require`, ми нічого не налаштовували.
+- Назва пакета - та, яку передавали в `composer require` (для pack-а - сам pack, навіть якщо Flex його розпакував).
+- Кілька пакетів однією командою - перелічуємо коротко: `install symfony/translation and symfony/intl`.
+- Dev-пакет (`--dev`) - тип `chore(deps-dev)`.
 
 ```
-chore(deps): install symfony/orm-pack
-
-Flex recipe changes:
-- config/bundles.php: register DoctrineBundle, DoctrineMigrationsBundle
-- config/packages: add doctrine.yaml, doctrine_migrations.yaml
-- .env: add DATABASE_URL
-- compose.yaml, compose.override.yaml: add database service (postgres:16-alpine)
-- Dockerfile: install pdo_pgsql extension
-- add migrations/, src/Entity/, src/Repository/ placeholders
+chore(deps): install symfony/validator
+chore(deps-dev): install symfony/maker-bundle
 ```
 
-Dev-пакет - `chore(deps-dev): install symfony/maker-bundle`.
+**Тіло - лише коли рецепт зачепив щось поза `config/packages/` і `config/bundles.php`**: `compose*.yaml`,
+`Dockerfile`, `.env*`, шаблони, `phpunit.dist.xml`, `src/`, або коли поведінка Flex неочевидна.
+Одне-два речення, що саме змінилось:
+
+```
+chore(deps): install symfony/mailer
+
+Recipe adds Mailpit service to compose.override.yaml and MAILER_DSN to .env.
+```
+
+```
+chore(deps-dev): install symfony/debug-pack
+
+Flex unpacked the pack: monolog-bundle goes to require,
+debug-bundle, stopwatch and web-profiler-bundle to require-dev.
+```
+
+`composer.json`, `composer.lock`, `symfony.lock` і `config/reference.php` змінюються в кожному такому коміті - їх не згадуємо.
 
 **Правки після рецепта** - окремим комітом, щоб в історії було видно, що зробив Flex, а що ми:
 
