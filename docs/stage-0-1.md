@@ -37,7 +37,8 @@ Sep 28, 2026 · @Alex Hamenko
 | Пакет | Тип | Навіщо на етапах 0–1 |
 | --- | --- | --- |
 | `symfony/orm-pack` | prod | Doctrine ORM, DBAL, Migrations |
-| `symfony/twig-bundle`, `twig/extra-bundle` | prod | Шаблони, фільтри intl/string |
+| `symfony/twig-bundle` | prod | Шаблони |
+| `twig/extra-bundle`, `twig/intl-extra`, `twig/string-extra`, `twig/html-extra` | prod | Автореєстрація Twig-розширень (сам бандл фільтрів не дає); `format_currency`/`format_datetime`, `u.truncate`/`slug`, `html_classes()`. Markdown, cssinliner, inky, cache - коли знадобляться |
 | `symfony/ux-twig-component` | prod | Секції головної та UI-kit як компоненти |
 | `symfony/asset-mapper` | prod | Статика без Node і бандлера |
 | `symfonycasts/tailwind-bundle` | prod | Tailwind через standalone-бінарник |
