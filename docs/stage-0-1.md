@@ -49,7 +49,7 @@ Sep 28, 2026 · @Alex Hamenko
 | `symfony/security-bundle` | prod | Поки лише для захисту `/admin` |
 | `easycorp/easyadmin-bundle` | prod | Адмінка контенту |
 | `symfony/maker-bundle` | dev | Генерація сутностей, контролерів |
-| `symfony/debug-pack`, `symfony/web-profiler-bundle` | dev | Профайлер, dump |
+| `symfony/debug-pack` | dev | Профайлер і toolbar (`profiler-pack` уже містить `web-profiler-bundle`), `dump()`/`dd()`, stopwatch. Flex розпаковує pack: `monolog-bundle` потрапляє в `require` (логування потрібне й у prod), решта - в `require-dev` |
 | `symfony/test-pack` | dev | PHPUnit, BrowserKit, DomCrawler |
 | `zenstruck/foundry` | dev | Фабрики й фікстури |
 | `dama/doctrine-test-bundle` | dev | Відкат транзакцій між тестами |
