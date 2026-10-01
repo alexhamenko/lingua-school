@@ -11,7 +11,8 @@ englishdom.com (структура й функції; бренд, фото й т
 - Symfony 8.1, PHP 8.5+, FrankenPHP (шаблон dunglas/symfony-docker), PostgreSQL, Redis/Valkey, Mailpit
 - Doctrine ORM + Migrations, Foundry, UUID v7, symfony/clock
 - Публічна частина: Twig + Symfony UX Twig Components (SSR, SEO), сторінки працюють без JS
-- Стилі: AssetMapper + symfonycasts/tailwind-bundle (standalone Tailwind 4, без Node) + daisyUI
+- Стилі: AssetMapper + symfonycasts/tailwind-bundle (standalone Tailwind 4, без Node) + daisyUI 5
+  (standalone `.mjs` у `tailwind/plugins/`, версії зафіксовані); у dev CSS перезбирає `make css`
 - Vue 3 ВІДКЛАДЕНО. Інтерактивні місця мають плейсхолдери data-island + data-props
   з робочою SSR-розміткою всередині (каруселі — CSS scroll-snap, FAQ — <details>)
 - Кабінет: API-first (JSON API, API Platform, Swagger UI, .http-файли); /app/* — Twig-заглушка
@@ -71,7 +72,7 @@ append-only ledger; групи до 7, розмовні клуби до 12 (A1�
 
 ## Поточний стан
 Етап 0: 0.1-0.3 завершено (пакети встановлено, QA-інструменти налаштовано, `make qa` і `make test` зелені),
-Makefile з 0.5 готовий. Далі: 0.4 (Tailwind + daisyUI), CI і README з 0.5.
+0.4 (Tailwind + daisyUI) завершено, Makefile з 0.5 готовий. Далі: CI і README з 0.5.
 Детальний план етапів 0–1 - у docs/stage-0-1.md.
 
 ## Правила роботи

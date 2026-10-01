@@ -75,11 +75,11 @@ Sep 28, 2026 · @Alex Hamenko
 
 Фронтенд-збірки на старті немає: Vue відкладено, стилі й UI-kit генерує AI. Потрібен лише мінімум, щоб Twig-шаблони мали CSS.
 
-1. `composer require symfony/asset-mapper symfonycasts/tailwind-bundle`, далі `bin/console tailwind:init`. Бандл завантажить standalone-бінарник Tailwind, Node не потрібен.
-2. `assets/styles/app.css`: `@import "tailwindcss";`, `@source` на `templates/**/*.twig`, daisyUI у варіанті для standalone-бінарника (за актуальною інструкцією daisyUI) і власна тема з основним кольором \~`#4fc87a`.
-3. У `base.html.twig`: `<link rel="stylesheet" href="{{ asset('styles/app.css') }}">` і `{{ importmap('app') }}`.
-4. Dev: `bin/console tailwind:build --watch` окремим процесом (ціль `make css`). Prod і CI: `tailwind:build --minify` + `asset-map:compile`.
-5. `assets/app.js` лишається майже порожнім; JavaScript на етапах 0–1 не пишемо.
+1. `composer require symfony/asset-mapper symfonycasts/tailwind-bundle`, далі `make console c='tailwind:init'` (команда лише інтерактивна). Вона фіксує версію бінарника в `config/packages/symfonycasts_tailwind.yaml` (`binary_version: v4.3.3`) і додає `@import "tailwindcss"` в `app.css`. Бінарник завантажується у `var/tailwind/`, Node не потрібен; `tailwind.config.js` для v4 не створюється - конфігурація живе в CSS.
+2. `assets/styles/app.css`: `@import "tailwindcss" source(none)` + `@source "../../templates"` (класи шукаються лише в шаблонах). daisyUI 5.7.47 - standalone-файли `daisyui.mjs` і `daisyui-theme.mjs` у `tailwind/plugins/`, підключені через `@plugin`: поза `assets/`, щоб AssetMapper їх не публікував; закомічені з фіксованою версією (оновлення - завантажити файли нового релізу з GitHub і змінити версію в коментарі `app.css`). Тема - вбудована `light` з `--color-primary: #4fc87a` і темним `--color-primary-content` (білий текст на `#4fc87a` не проходить контраст WCAG).
+3. У `base.html.twig`: `<link rel="stylesheet" href="{{ asset('styles/app.css') }}">` (бандл підміняє вміст скомпільованим CSS), `{{ importmap('app') }}`, `<meta name="viewport">` (без нього mobile-first не працює на телефонах) і `<html lang="{{ app.request.locale }}">`.
+4. Dev: `make css` (`tailwind:build --watch`) окремим процесом, інакше зміни класів у шаблонах не потраплять у CSS. Prod: у `Dockerfile` (стадія `frankenphp_prod_builder`) `tailwind:build --minify` перед `asset-map:compile`. CI: те саме як smoke-перевірка статики (0.5).
+5. `assets/app.js` лишається майже порожнім: без `import './styles/app.css'` (стилі підключені через `<link>`, без залежності від JS); JavaScript на етапах 0–1 не пишемо.
 
 Коли дійде до Vue: `pentatrion/vite-bundle` + `vite-plugin-symfony`, Node-сервіс у compose, заміна `importmap()` на `vite_entry_*_tags()` у `base.html.twig`. Оцінка — близько пів дня.
 
@@ -106,7 +106,7 @@ Sep 28, 2026 · @Alex Hamenko
 - [x] `make up` піднімає проєкт з нуля на чистій машині
 - [x] `https://localhost` відкривається, профайлер працює
 - [x] `make qa` і `make test` зелені (є хоча б один smoke-тест)
-- [ ] Tailwind + daisyUI збираються, `base.html.twig` підхоплює стилі
+- [x] Tailwind + daisyUI збираються, `base.html.twig` підхоплює стилі
 - [ ] CI зелений на PR, `main` захищений
 - [ ] README: як запустити, які команди є
 - [x] `CLAUDE.md` у корені з контекстом проєкту
