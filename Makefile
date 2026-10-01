@@ -62,6 +62,8 @@ test: ## Prepare the test database and run PHPUnit, example: make test c='--test
 	@$(eval c ?=)
 	@$(CONSOLE) doctrine:database:create --env=test --if-not-exists
 	@$(CONSOLE) doctrine:migrations:migrate --env=test --no-interaction --allow-no-migration
+	@# Pages link styles/app.css: without the Tailwind output AssetMapper fails on @import "tailwindcss"
+	@$(CONSOLE) tailwind:build
 	@$(PHP_CONT) bin/phpunit $(c)
 
 qa: ## Run all static checks (no changes to the code)
