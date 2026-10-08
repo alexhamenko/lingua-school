@@ -1,7 +1,8 @@
 #syntax=docker/dockerfile:1
 
 # Versions
-FROM dunglas/frankenphp:1-php8.5 AS frankenphp_upstream
+# Minor version pinned: minor releases may break (1.13 brought Mercure 1.0), Dependabot proposes them as PRs
+FROM dunglas/frankenphp:1.13-php8.5 AS frankenphp_upstream
 
 # The different stages of this Dockerfile are meant to be built into separate images
 # https://docs.docker.com/build/building/multi-stage/#stop-at-a-specific-build-stage
