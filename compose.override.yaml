@@ -25,7 +25,6 @@ services:
       # Learning mode: restart the worker after every request (shared-nothing, like classic PHP).
       # Remove to enable real worker mode (planned together with Messenger), see PROJECT_CONTEXT.md.
       FRANKENPHP_LOOP_MAX: 1
-      MERCURE_EXTRA_DIRECTIVES: demo
       # See https://xdebug.org/docs/all_settings#mode
       XDEBUG_MODE: "${XDEBUG_MODE:-develop}"
       APP_ENV: "${APP_ENV:-dev}"

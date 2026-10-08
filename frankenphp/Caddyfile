@@ -25,6 +25,11 @@
 	encode zstd br gzip
 
 	mercure {
+		# Mercure 1.0: SERVER_NAME lists several addresses, so this block creates one hub per server;
+		# only one may be unnamed, and equal names share a transport (a single hub for all addresses)
+		name app
+		# Mercure 1.0: keep the 0.x *_jwt directives below working (migrate to an "issuer" block later)
+		protocol_version_compatibility 8
 		# Publisher JWT key
 		publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY} {env.MERCURE_PUBLISHER_JWT_ALG}
 		# Subscriber JWT key

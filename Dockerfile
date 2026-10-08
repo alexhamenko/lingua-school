@@ -67,7 +67,7 @@ RUN <<-EOF
 	mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 	install-php-extensions xdebug
 	groupadd -g "$GID" nonroot
-	useradd -m -s /bin/bash -u "$UID" -g "$GID" nonroot
+	useradd -m -l -s /bin/bash -u "$UID" -g "$GID" nonroot
 	git config --system --add safe.directory /app
 	# Caddy state (/data, /config) and the var/ volume are initialized from these owners
 	mkdir -p /data/caddy /config/caddy /app/var

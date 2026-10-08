@@ -4,7 +4,7 @@
 
 Формат - [Conventional Commits 1.0.0](https://www.conventionalcommits.org/uk/v1.0.0/).
 
-```
+```text
 <type>(<scope>)!: <description>
 
 [body]
@@ -68,7 +68,7 @@
 - Кілька пакетів однією командою - перелічуємо коротко: `install symfony/translation and symfony/intl`.
 - Dev-пакет (`--dev`) - тип `chore(deps-dev)`.
 
-```
+```text
 chore(deps): install symfony/validator
 chore(deps-dev): install symfony/maker-bundle
 ```
@@ -77,13 +77,13 @@ chore(deps-dev): install symfony/maker-bundle
 `Dockerfile`, `.env*`, шаблони, `phpunit.dist.xml`, `src/`, або коли поведінка Flex неочевидна.
 Одне-два речення, що саме змінилось:
 
-```
+```text
 chore(deps): install symfony/mailer
 
 Recipe adds Mailpit service to compose.override.yaml and MAILER_DSN to .env.
 ```
 
-```
+```text
 chore(deps-dev): install symfony/debug-pack
 
 Flex unpacked the pack: monolog-bundle goes to require,
@@ -94,13 +94,13 @@ debug-bundle, stopwatch and web-profiler-bundle to require-dev.
 
 **Правки після рецепта** - окремим комітом, щоб в історії було видно, що зробив Flex, а що ми:
 
-```
+```text
 fix(docker): align PostgreSQL serverVersion with database image
 ```
 
 **Нова сутність і міграція** - разом, бо міграція без сутності не має сенсу:
 
-```
+```text
 feat(content): add Page entity with translations
 
 Page holds locale-independent fields, PageTranslation holds texts
@@ -109,20 +109,20 @@ per locale with a unique (page_id, locale) index.
 
 **Налаштування інструменту якості:**
 
-```
+```text
 chore(qa): configure PHPStan at level max
 ```
 
 **Згенерована верстка** - завжди окремо від PHP-коду компонента:
 
-```
+```text
 feat(content): add Testimonials component data
 ui(home): add Testimonials section markup
 ```
 
 **Breaking change** (актуально з API кабінету, етап 4):
 
-```
+```text
 feat(api)!: rename /lessons endpoint to /bookings
 
 BREAKING CHANGE: clients must switch to /api/bookings.
