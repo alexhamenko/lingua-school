@@ -74,7 +74,7 @@ append-only ledger; групи до 7, розмовні клуби до 12 (A1�
 Етап 0 завершено: пакети, QA-інструменти (`make qa`, `make test`), Tailwind + daisyUI, Makefile,
 CI (GitHub Actions: Tests + super-linter, `main` захищений ruleset-ом, зміни лише через PR), README.
 Далі: етап 1 (1.1 - модулі й локалізований роутинг).
-Детальний план етапів 0–1 - у docs/stage-0-1.md.
+Детальні плани етапів - у docs/stage-<N>.md (0-10 і опційний 11 - Vue).
 
 ## Режим ментора (з етапу 1)
 - Код застосунку (src/, tests/, config/, міграції, бекенд-шаблони) пишу я сам. AI - ментор: пояснює,
