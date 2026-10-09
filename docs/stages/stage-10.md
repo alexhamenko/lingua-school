@@ -47,7 +47,7 @@ Oct 9, 2026 · @Alex Hamenko
 
 ### 10.5 Деплой (≈3 дні)
 
-1. Базово - `compose.prod.yaml` з шаблону і `docs/production.md` (VPS, наприклад DigitalOcean, DNS, автоматичний HTTPS у Caddy).
+1. Базово - `compose.prod.yaml` з шаблону і `docs/symfony-docker/production.md` (VPS, наприклад DigitalOcean, DNS, автоматичний HTTPS у Caddy).
 2. Сервіси prod: `php`, `worker` (`messenger:consume async scheduler_default` з `--time-limit` і перезапуском), `database`, `redis`.
 3. Деплой із CI: збірка і push образу в registry (GHCR), на сервері `docker compose pull && up -d`, міграції окремим кроком перед перемиканням. Подумайте, як зробити міграції сумісними зі старою версією коду (expand/contract).
 4. `messenger:stop-workers` після деплою, щоб воркери підхопили новий код.
