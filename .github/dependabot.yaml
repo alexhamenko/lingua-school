@@ -17,6 +17,11 @@ updates:
       prefix: "chore"
     cooldown:
       default-days: 7
+    groups:
+      # Symfony releases all packages together: one PR per release
+      symfony:
+        patterns:
+          - "symfony/*"
 
   - package-ecosystem: github-actions
     directory: /
