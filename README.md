@@ -40,7 +40,7 @@ make css     # in a separate terminal: rebuild Tailwind CSS on template changes
 
 - Зміни - через гілку і PR: `main` захищений, злиття лише із зеленим CI (`Tests`, `Lint`).
 - Перед комітом: `make qa` і `make test`. Повідомлення комітів - Conventional Commits, шпаргалка в [CONTRIBUTING.md](CONTRIBUTING.md).
-- План етапів 0-1: [docs/stage-0-1.md](docs/stage-0-1.md); архітектура й roadmap: [docs/architecture-roadmap.md](docs/architecture-roadmap.md).
+- Плани етапів: `docs/stage-N.md` (від [етапу 0](docs/stage-0.md) до опційного [етапу 11](docs/stage-11.md)); архітектура й roadmap: [docs/architecture-roadmap.md](docs/architecture-roadmap.md).
 
 ## Основа
 
