@@ -16,7 +16,7 @@ make up      # start containers and wait until they are healthy
 make css     # in a separate terminal: rebuild Tailwind CSS on template changes
 ```
 
-Відкрийте `https://localhost` і прийміть локальний TLS-сертифікат (або додайте кореневий сертифікат Caddy в довірені, див. [docs/tls.md](docs/tls.md)). Сторінка `https://localhost/_dev/styleguide` (лише dev) показує тему й компоненти.
+Відкрийте `https://localhost` і прийміть локальний TLS-сертифікат (або додайте кореневий сертифікат Caddy в довірені, див. [docs/symfony-docker/tls.md](docs/symfony-docker/tls.md)). Сторінка `https://localhost/_dev/styleguide` (лише dev) показує тему й компоненти.
 
 Зупинка: `make down`.
 
@@ -40,8 +40,8 @@ make css     # in a separate terminal: rebuild Tailwind CSS on template changes
 
 - Зміни - через гілку і PR: `main` захищений, злиття лише із зеленим CI (`Tests`, `Lint`).
 - Перед комітом: `make qa` і `make test`. Повідомлення комітів - Conventional Commits, шпаргалка в [CONTRIBUTING.md](CONTRIBUTING.md).
-- Плани етапів: `docs/stage-N.md` (від [етапу 0](docs/stage-0.md) до опційного [етапу 11](docs/stage-11.md)); архітектура й roadmap: [docs/architecture-roadmap.md](docs/architecture-roadmap.md).
+- Плани етапів: `docs/stages/stage-N.md` (від [етапу 0](docs/stages/stage-0.md) до опційного [етапу 11](docs/stages/stage-11.md)); архітектура й roadmap: [docs/architecture-roadmap.md](docs/architecture-roadmap.md).
 
 ## Основа
 
-Проєкт створено з шаблону [dunglas/symfony-docker](https://github.com/dunglas/symfony-docker). Його документація лишилась у `docs/`: [Xdebug](docs/xdebug.md), [TLS](docs/tls.md), [деплой](docs/production.md), [troubleshooting](docs/troubleshooting.md), [оновлення шаблону](docs/updating.md).
+Проєкт створено з шаблону [dunglas/symfony-docker](https://github.com/dunglas/symfony-docker). Його документація лишилась у `docs/symfony-docker/`: [Xdebug](docs/symfony-docker/xdebug.md), [TLS](docs/symfony-docker/tls.md), [деплой](docs/symfony-docker/production.md), [troubleshooting](docs/symfony-docker/troubleshooting.md), [оновлення шаблону](docs/symfony-docker/updating.md).
