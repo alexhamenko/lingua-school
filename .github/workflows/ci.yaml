@@ -76,11 +76,15 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Lint Code Base
-        uses: super-linter/super-linter/slim@v8
+        uses: super-linter/super-linter/slim@v9
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # One "Lint" check instead of a status per linter (no statuses: write needed)
           MULTI_STATUS: false
+          # v9 posts a summary comment on PRs by default (needs pull-requests: write); the Lint check is enough
+          ENABLE_GITHUB_PULL_REQUEST_SUMMARY_COMMENT: false
+          # v9 looks for stylelint.config.mjs by default; keep the JSON config
+          CSS_FILE_NAME: .stylelintrc.json
           # PRs: changed files only (fast); pushes to main and manual runs: whole repository
           VALIDATE_ALL_CODEBASE: ${{ github.event_name != 'pull_request' }}
           # Commit messages are checked by commitlint with .commitlintrc.json (Conventional Commits, CONTRIBUTING.md)

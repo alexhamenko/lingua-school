@@ -49,6 +49,8 @@ COPY --link frankenphp/Caddyfile /etc/frankenphp/Caddyfile
 
 ENTRYPOINT ["docker-entrypoint"]
 
+# Shell form on purpose: JSON form would need double-escaping the PHP snippet
+# hadolint ignore=DL3025
 HEALTHCHECK --start-period=60s CMD php -r 'exit(false === @file_get_contents("http://localhost:2019/metrics", context: stream_context_create(["http" => ["timeout" => 5]])) ? 1 : 0);'
 CMD [ "frankenphp", "run", "--config", "/etc/frankenphp/Caddyfile" ]
 
@@ -176,5 +178,7 @@ WORKDIR /app
 
 ENTRYPOINT ["docker-entrypoint"]
 
+# Shell form on purpose: JSON form would need double-escaping the PHP snippet
+# hadolint ignore=DL3025
 HEALTHCHECK --start-period=60s CMD php -r 'exit(false === @file_get_contents("http://localhost:2019/metrics", context: stream_context_create(["http" => ["timeout" => 5]])) ? 1 : 0);'
 CMD [ "frankenphp", "run", "--config", "/etc/frankenphp/Caddyfile" ]
