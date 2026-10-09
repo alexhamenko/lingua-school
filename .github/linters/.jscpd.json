@@ -9,5 +9,6 @@
         "**/tests/object-manager.php",
         "**/tests/console-application.php"
     ],
-    "absolute": true
+    "absolute": true,
+    "gitignore": true
 }
